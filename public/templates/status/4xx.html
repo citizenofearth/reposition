@@ -1,0 +1,21 @@
+<div class="pf-splash pf-splash-warning">
+    <div class="pf-color-line warning"></div>
+    <div class="pf-splash-title">
+        <h1>
+            <span class="txt-color txt-color-warning">
+                <i class="fas fa-fw fa-exclamation-triangle"></i> Error - {{ @errorData->code }}
+            </span>
+        </h1>
+        <p class="lead">
+            Status: "<b>{{ @errorData->status }}</b>".
+            Use your browsers Back button to navigate to the page you have previously come
+            <a href="{{ @errorData->redirectUrl }}">from</a>.<br>
+
+            <check if="{{ @errorData->message }}">
+                Message: {{ @errorData->message }}
+            </check>
+        </p>
+    </div>
+
+    <include if="{{ @DEBUG == 3 }}" href="{{ 'templates/ui/debug.html' }}" />
+</div>

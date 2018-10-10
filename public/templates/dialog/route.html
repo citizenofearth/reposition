@@ -1,0 +1,136 @@
+<div id="{{id}}">
+    <form  role="form" class="form-horizontal">
+
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-3 col-xs-2 control-label">From</label>
+                    <div class="col-sm-9 col-xs-10">
+                            <div class=" pull-right">
+                                <p class="form-control-static">
+                                    <i class="fas fa-arrow-right"></i>
+                                </p>
+                            </div>
+                            <p class="form-control-static">{{systemFromData.name}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <label class="col-sm-2 col-xs-2 control-label" for="to_system">To</label>
+                    <div class="col-sm-10 col-xs-10">
+                        <div class="input-group">
+                            <select id="to_system" name="systemToData" class="form-control {{selectClass}}" data-error="Choose a valid system" required>
+                                {{#systemToData}}
+                                <option value="{{systemId}}">{{name}}</option>
+                                {{/systemToData}}
+                            </select>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{! search options ----------------------------------------------------------- }}
+
+        <h4 class="pf-dynamic-area">Search options</h4>
+
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-primary" title="include stargate connections">
+                            <input id="form_stargates" name="stargates" value="1" type="checkbox" checked>
+                            <label for="form_stargates">Stargates</label>
+                        </div>
+
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-primary" title="include jump bridge connections">
+                            <input id="form_rally" name="jumpbridges" value="1" type="checkbox" checked>
+                            <label for="form_rally">Jump Bridges</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="{{mapSelectId}}">Maps</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <select id="{{mapSelectId}}" name="mapIds[]" multiple="multiple">
+                                {{#mapSelectOptions}}
+                                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+                                {{/mapSelectOptions}}
+                            </select>
+                            <span class="help-block with-errors">Set maps for search</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        {{! wormhole ----------------------------------------------------------------- }}
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-primary" title="include wormhole connections">
+                            <input id="form_wormholes" name="wormholes" value="1" type="checkbox" checked>
+                            <label for="form_wormholes">Wormholes</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-warning checkbox-circle" title="include reduced connections">
+                            <input id="form_wormholes_reduced" name="wormholesReduced" value="1" type="checkbox" checked>
+                            <label for="form_wormholes_reduced">Stage 2 (reduced)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-danger checkbox-circle" title="include critical connections">
+                            <input id="form_wormholes_critical" name="wormholesCritical" value="1" type="checkbox" checked>
+                            <label for="form_wormholes_critical">Stage 3 (critical)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox checkbox-circle" title="include frigate connections">
+                            <input id="form_wormholes_frigate" name="wormholesFrigate" value="1" type="checkbox" checked>
+                            <label for="form_wormholes_frigate">Frigate</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                        <div class="col-sm-12 col-xs-6 checkbox checkbox-danger checkbox-circle" title="include EOL connections">
+                            <input id="form_wormholes_eol" name="wormholesEOL" value="1" type="checkbox" checked>
+                            <label for="form_wormholes_eol">End of life (EOL)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

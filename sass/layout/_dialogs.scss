@@ -1,0 +1,277 @@
+.modal-content, .panel-body {
+
+  // dialog headline ==========================================================
+  h2 {
+    font-family: $font-family-sans-serif;
+    letter-spacing: 0;
+    font-size: $font-size-h5;
+    margin: 20px 0;
+    line-height: normal;
+  }
+
+  h2, h4 {
+    &.pf-dynamic-area {
+      min-height: 0;
+      margin: 0 0 10px 0;
+
+      & > img {
+        margin: -10px 5px -10px -10px;
+        width: 35px;
+      }
+    }
+
+    // collapse-able headline =================================================
+    &[data-toggle="collapse"] {
+      cursor: pointer;
+
+      &:hover {
+        &:after {
+          color: $orange !important;
+        }
+      }
+
+      &:after {
+        content: "\f078";
+        font-family: "Font Awesome 5 Free";
+        font-style: normal;
+        font-weight: bold;
+        font-size: 13px;
+        padding-right: 10px;
+        position: absolute;
+        color: $orange;
+        top: 10px;
+        right: 6px;
+        will-change: transform, color;
+
+        @extend .pf-animate-rotate;
+        @extend .fa-fw;
+      }
+
+      &.collapsed {
+        &:after {
+          top: 13px;
+          right: 5px;
+          color: $gray-light;
+          @include rotate(90deg);
+        }
+      }
+    }
+  }
+}
+
+
+.modal-content {
+  // data tables ==============================================================
+  .dataTables_wrapper{
+    + .alert{
+      margin-top: 10px;
+    }
+  }
+
+  .dataTable, .table{
+    font-size: 10px;
+    font-family: $font-family-bold;
+  }
+
+  // horizontal line ==========================================================
+  hr{
+    margin: 5px 0 15px 0;
+    border-color: $gray-light;
+  }
+
+  // well =====================================================================
+  .well{
+    margin-bottom: 0; // overwrite default
+
+    .list-inline{
+      margin-bottom: 0; // overwrite default
+    }
+  }
+
+  // form wizard ==============================================================
+  .pf-wizard-navigation{
+    margin: 0;
+
+    li{
+      &:not(:last-child):before{
+        border-top: 1px solid $gray-light;
+        content: "";
+        display: block;
+        font-size: 0;
+        overflow: hidden;
+        position: relative;
+        top: 12px;
+        left: 71px;
+        right: 1px;
+        width: 100%;
+      }
+
+      &.finished{
+          &:before{
+          @include border-image( linear-gradient(to right, $teal-dark, $teal-dark) 1 1% );
+          border-bottom: 0;
+        }
+      }
+
+      &.active{
+
+        &:before{
+          @include border-image( linear-gradient(to right, $brand-success, $gray-light) 1 1% );
+          border-bottom: 0;
+        }
+      }
+
+      & > h6{
+        color: $gray-light;
+        font-size: 11px;
+        margin: 5px;
+      }
+
+      a:hover{
+        & + h6{
+          color: $gray-lighter;
+        }
+      }
+
+      &.active a:not(.btn-danger){
+        @extend .btn-success;
+
+        & + h6{
+          color: $gray-lighter;
+        }
+      }
+
+    }
+
+  }
+}
+
+// settings dialog ============================================================
+#pf-settings-dialog{
+
+  // smaller buttons
+  .form-group .btn-sm{
+    padding: 4px 7px 3px;
+  }
+
+  // captcha image
+  #pf-dialog-captcha-wrapper{
+    margin: 0;
+    padding: 3px 0;
+  }
+}
+
+// map settings dialog ========================================================
+#pf-map-dialog{
+  #pf-map-dialog-character-select,
+  #pf-map-dialog-corporation-select,
+  #pf-map-dialog-alliance-select{
+    width: 535px; // just to bring fields "in line" with each other
+  }
+}
+
+#pf-route-dialog{
+  #pf-route-dialog-map-select{
+    width: 300px !important;
+  }
+}
+
+// shortcuts dialog ===========================================================
+#pf-shortcuts-dialog{
+  td kbd{
+    & + i {
+      width: 16px;
+    }
+    &:last-of-type + i{
+      display: none
+    }
+  }
+}
+
+// map manual dialog ==========================================================
+#pf-manual-scrollspy{
+  position: relative;
+  height: 700px;
+  overflow: auto;
+}
+
+// ad system dialog ===========================================================
+.pf-system-dialog-select{
+  width: 300px !important;
+}
+
+// task-manager dialog ========================================================
+#pf-task-dialog{
+  .pf-task-dialog-status{
+    min-height: inherit;
+  }
+}
+
+// map info dialog ============================================================
+#pf-map-info-logs {
+  margin-bottom: 10px;
+}
+
+// statistics dialog ==========================================================
+#pf-stats-dialog{
+  .pf-dynamic-area{
+    margin-bottom: 10px;
+  }
+}
+
+// structure dialog ===========================================================
+#pf-structure-dialog{
+  #pf-structure-dialog-corporation-select, #pf-structure-dialog-type-select{
+    width: 267px !important;
+  }
+}
+
+// jump info dialog ===========================================================
+.pf-jump-info-dialog{
+  blockquote{
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+}
+// changelog
+.pf-changelog-dialog{
+  .pf-dynamic-message-container{
+    margin-bottom: 20px;
+  }
+}
+
+// credits dialog =============================================================
+.pf-credits-dialog{
+
+  .pf-credits-logo-background{
+    overflow: visible;
+    background: url("#{$base-url}/logo_bg.png");
+    background-size: cover;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  #pf-logo-container{
+    width: 355px;
+    height: 366px;
+    margin: 0 auto;
+
+  }
+
+  .pf-dynamic-area{
+    min-height: 50px;
+  }
+
+  .dl-horizontal{
+    display: inline-block;
+    width: 48%;
+  }
+
+  .btn{
+    padding: 0;
+  }
+
+  blockquote{
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,741 @@
+.pf-animate{
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+// splash loading animation ============================================================================
+
+.pf-color-line{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  @include background-image(linear-gradient(to right, $green-light, $green-light 100%));
+
+  &.warning{
+    @include background-image(linear-gradient(to right, $brand-warning, $brand-warning 100%));
+  }
+
+  &.danger{
+    @include background-image(linear-gradient(to right, $brand-danger, $brand-danger 100%));
+  }
+}
+
+.pf-splash{
+  position: absolute;
+  z-index: 2000;
+  background-color: $gray-darkest;
+  color: $gray-light;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  will-change: opacity;
+
+  &:not(.pf-splash-warning):not(.pf-splash-error){
+    cursor: wait;
+  }
+
+  .pf-splash-title{
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    text-align: center;
+    max-width: 500px;
+    padding: 20px;
+    @include transform( translate(-50%, -50%) );
+  }
+
+  .pf-splash-debug{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+
+    .pf-splash-debug-headline{
+      padding: 0 10px;
+    }
+
+    .pf-splash-pre{
+      margin-bottom: 0; // overwrite default
+    }
+  }
+}
+
+// landing page ========================================================================================
+@media (max-width: $screen-md) {
+  .pf-landing{
+
+    #pf-logo-container{
+      margin: 5px auto;
+    }
+
+    .pf-brand-desc {
+      display: none
+    }
+
+    .navbar .navbar-brand {
+      margin-left: 10px
+    }
+  }
+
+}
+
+
+// content
+.pf-landing{
+
+  section:not(:last-of-type){
+    border-bottom: 1px solid $gray-darker;
+  }
+
+  section{
+    min-height: 200px;
+    padding: 20px 0 40px 0;
+
+    h4:not(.pf-dynamic-area){
+      font-size: 18px;
+      font-family: $font-family-sans-serif;
+      margin: 5px 0 10px 0;
+      border-bottom: 1px solid $gray-darker;
+      line-height: 34px;
+    }
+  }
+
+  .container > .row{
+    margin-bottom: 30px;
+  }
+
+  .alert {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  // images for gallery
+
+  a[data-gallery] {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; // hide initial overlapping "before" element"
+    margin: 5px 0 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+
+    &:before{
+      content: '\f06e';
+      font-family: 'Font Awesome 5 Free';
+      font-size: 20px;
+      color: $orange;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: 10;
+      @include transition(transform 0.1s ease-out, opacity 0.1s ease-out);
+      will-change: transform, opacity;
+      transform: scale(1.3,1.3);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:hover{
+      img{
+        border-color: $teal-lightest;
+        @include filter(brightness( 50% ));
+      }
+
+      &:before{
+        @include transition-delay( 0.05s );
+        transform: scale(1,1);
+        opacity: 1;
+      }
+    }
+
+    .pf-landing-image-preview{
+      border: {
+        width: 1px;
+        style: solid;
+        color: $gray-darkest
+      }
+      display: inline-block;
+      will-change: all;
+      @include filter(brightness( 100% ));
+      @include transition(all 0.2s ease-out);
+
+
+      &.pf-landing-image-preview-small{
+        height: 160px;
+      }
+
+      &.pf-landing-image-preview-medium{
+        height: 256px;
+      }
+    }
+  }
+
+  // lists
+  .pf-landing-list{
+    li > i{
+      @extend .fa-li;
+      @extend .fas;
+      @extend .fa-fw;
+      @extend .fa-angle-right;
+      @extend .txt-color;
+      @extend .txt-color-tealLighter;
+    }
+  }
+
+
+}
+ // header --------------------------------------------------------------------
+#pf-landing-top{
+  height: 355px;
+  border-bottom: 1px solid $gray-dark;
+  position: relative;
+
+  &:before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url("#{$base-url}/#{$body-background-image}") $body-background-color;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    @include filter(brightness(0.9))
+  }
+
+  #pf-logo-container{
+    @include transform( scale3d(0.8, 0.8, 1) ); // downscales logo
+  }
+
+  #pf-header-container{
+    position: absolute;
+    width: 100%;
+    background-position: center center;
+
+    #pf-header-canvas{
+      position: absolute;
+      visibility: hidden; // triggered by js
+      top: 0;
+      left: 0;
+    }
+
+    #pf-logo-container{
+      z-index: 110;
+    }
+
+    #pf-header-preview-container{
+      position: absolute;
+      left: 400px;
+      width: 590px;
+      height: 350px;
+      top: 37px;
+
+      .pf-header-preview-element{
+        position: relative;
+        margin-left: 12px;
+        margin-top: 12px;
+        height: 155px;
+        width: 180px;
+        padding: 7px;
+        opacity: 0;
+        @include border-radius(5px);
+        background: {
+          color: rgba(43, 43, 43, 0.5);
+        }
+
+        &:nth-child(n+4){
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        &:after{
+          content: '';
+          position: absolute;
+          width: calc(100% - 14px);
+          height: calc(100% - 14px);
+          @include border-radius(3px);
+          background: {
+            repeat: no-repeat;
+            position: 50% 50%;
+            color: rgba(29, 29, 29, 0.75);
+          }
+        }
+      }
+
+    }
+  }
+
+  .container{
+    position: relative;
+    margin-top: 10px;
+  }
+}
+
+#pf-header-preview-intel{
+  &:after{
+    background-image: url("#{$base-url}/landing/intel.png");
+  }
+}
+
+#pf-header-preview-map{
+  &:after{
+    background-image: url("#{$base-url}/landing/map.png");
+  }
+}
+
+#pf-header-preview-scope{
+  &:after{
+    background-image: url("#{$base-url}/landing/scope.png");
+  }
+}
+
+#pf-header-preview-signature{
+  &:after{
+    background-image: url("#{$base-url}/landing/signature.png");
+  }
+}
+
+#pf-header-preview-data{
+  &:after{
+    background-image: url("#{$base-url}/landing/data.png");
+  }
+}
+
+#pf-header-preview-gameplay{
+  &:after{
+    background-image: url("#{$base-url}/landing/gameplay.png");
+  }
+}
+
+// login ----------------------------------------------------------------------
+#pf-landing-login{
+  padding-top: 40px;
+  padding-bottom: 30px;
+
+  @media (max-width: $screen-sm-max) {
+    padding-top: 10px;
+  }
+
+  .row{
+    margin-bottom: 0;
+  }
+
+  // character select panel animation (e.g. on delete)
+  .pf-character-selection > div:not(.pf-character-row-animate){
+    @include transition( width 0.2s ease, margin 0.2s ease);
+  }
+
+  .pf-dynamic-area{
+    display: inline-block;
+    margin: 10px 5px 20px 5px;
+    padding: 10px 10px 5px 10px;
+    min-width: 155px;
+    min-height: 184px;
+    overflow: visible;  // overwrite default
+    @include border-radius(10px);
+    @include box-shadow(0 4px 10px rgba(0,0,0, 0.4));
+
+    .ribbon-wrapper{
+      z-index: 5 ;
+    }
+
+    // character images
+    .pf-character-image-wrapper{
+      opacity: 0;
+      width: 128px;
+      border: 2px solid $gray-light;
+      @include border-radius(8px);
+      @include transition( border-color 0.2s ease-out, box-shadow 0.2s ease-out);
+      @include transform( translate3d(0, 0, 0) );
+      will-change: border-color, transition;
+      overflow: hidden;
+      cursor: pointer;
+      display: inline-block;
+      background-color: $gray-darker;
+      box-sizing: content-box; // because of the borders and the fix img with of 128
+
+      &:hover{
+        border-color: $green-dark;
+
+        .pf-character-name{
+          color: $green-dark;
+        }
+
+        .pf-character-image{
+          @include filter(grayscale(50%))
+        }
+      }
+
+      // character is "online"
+      &.pf-character-active:after{
+        font-family: "Font Awesome 5 Free";
+        content: "\f111";
+        font-weight: bold;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        height: 14px;
+        width: 14px;
+        color: $green;
+        font-size: 10px;
+        @extend .fa-rotate-180;
+      }
+
+      .pf-character-select-image{
+        overflow: hidden;
+        width: 128px;
+        height: 128px;
+        position: relative;
+
+        // info element visible on hover
+        .pf-character-info{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0; // trigger by js
+          height: 100%;
+          color: $gray-lighter;
+          background: rgba($gray, 0.80);
+          overflow: hidden;
+          will-change: width, transition;
+          padding: 10px 0;
+
+          .pf-character-info-text{
+            line-height: 25px;
+          }
+        }
+      }
+
+      .pf-character-name{
+        font-size: 13px;
+        line-height: 30px;
+        border-top: 1px solid $gray-dark;
+        color: $gray-lighter;
+        @include transition( color 0.2s ease-out );
+      }
+
+      .pf-character-image{
+        @include transition(all 0.3s ease-out);
+        @include filter(grayscale(0%));
+      }
+    }
+  }
+
+  .pf-sso-login-button{
+    position: relative;
+    display: inline-block;
+    width: 270px;
+    height: 45px;
+    border: none;
+    margin-bottom: 10px;
+    background-color: transparent;
+    background-image: url("#{$base-url}/landing/eve_sso_login_buttons_large_black_hover.png");
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    @include transition(box-shadow 0.12s ease-out);
+    will-change: box-shadow;
+
+    &:after {
+      content: ' ';
+      position: absolute;
+      width: 270px;
+      height: 45px;
+      left: 0;
+      top: 0;
+      background-image: url("#{$base-url}/landing/eve_sso_login_buttons_large_black.png");
+      @include transition(opacity 0.12s ease-in-out);
+      will-change: opacity;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+
+      &:after{
+        opacity: 0;
+      }
+    }
+
+    &.disabled{
+      pointer-events: auto; // required for tooltips to be shown on "disabled" links
+    }
+  }
+
+  #pf-notification-panel{
+    display: none;
+  }
+}
+
+// demo map -------------------------------------------------------------------
+#pf-header-map{
+  // the size matches the size of the svg-map
+  position: relative;
+  margin: 0 auto;
+  height: 380px;
+  width: 600px;
+  pointer-events: none;
+
+  .pf-header-svg-layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  // system layer
+  #pf-header-systems{
+    z-index: 100;
+  }
+
+  // connector layer
+  #pf-header-connectors{
+    z-index: 90;
+  }
+
+  // connector layer
+  #pf-header-connections{
+    z-index: 80;
+  }
+
+  // background layer
+  #pf-header-background{
+    z-index: 70;
+
+    .pf-header-system{
+      display: none;
+    }
+  }
+}
+
+// map bg
+#pf-header-map-bg{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  img{
+    pointer-events: none;
+  }
+
+  #pf-map-bg-image{
+    opacity: 0; // triggered by js
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #pf-map-neocom{
+    opacity: 0; // triggered by js
+    height: 665px;
+    width: 21px;
+  }
+
+  #pf-map-browser{
+    opacity: 0; // triggered by js
+    position: absolute;
+    top: 110px;
+    left: 21px;
+    height: 560px;
+    width: 515px;
+  }
+}
+
+// carousel -------------------------------------------------------------------
+#pf-landing-gallery-carousel{
+  background-image: url("#{$base-url}/pf-header-bg.jpg");
+
+  .slide-content{
+    border-radius: 5px;
+    pointer-events: none; // hide show "title" attr on hover
+  }
+
+  // title style
+  h3{
+    width: 100%;
+    text-align: left;
+  }
+}
+
+// gallery --------------------------------------------------------------------
+#pf-landing-gallery{
+
+}
+
+// pricing --------------------------------------------------------------------
+.pf-landing-pricing-panel{
+  margin-top: 20px;
+}
+
+.pricing-big{
+  position: relative;
+  @include box-shadow(0 4px 10px rgba(0,0,0, 0.4));
+
+  .panel-heading{
+    border-color: $gray;
+  }
+  .the-price {
+    padding: 1px 0;
+    background: darken($modal-content-bg, 6%);
+    text-align: center;
+
+    .subscript{
+      font-size: 12px;
+      color: $gray-light;
+    }
+  }
+
+  .price-features {
+    background: $gray;
+    color: $gray-lighter;
+    padding: 20px 15px;
+    line-height: 22px;
+
+    &:not(.price-features-fluid){
+      min-height: 205px;
+    }
+
+    .list-unstyled.text-left li{
+      text-indent: -1em;
+      padding-left: 1.5em;
+
+      .fa{
+        text-indent: 0;
+      }
+    }
+  }
+
+  // table
+  table tr td {
+    line-height: 1;
+  }
+}
+
+// admin ----------------------------------------------------------------------
+#pf-landing-admin{
+  .pf-landing-admin-login{
+    margin-bottom: 0;
+  }
+}
+
+// about ----------------------------------------------------------------------
+#pf-landing-about{
+
+  .pf-landing-about-me{
+    width: 256px;
+    height: 256px;
+    border: none;
+    @include box-shadow(0 4px 10px rgba(0,0,0, 0.4));
+  }
+}
+
+// footer ---------------------------------------------------------------------
+.pf-landing-footer{
+  padding: 30px 0;
+  font-family: $font-family-bold;
+  background-color: darken($gray-darker, 8%) ;
+
+  .row{
+    margin-bottom: 0 !important; // overwrite default
+  }
+
+  .pf-social-networks > li{
+    display: inline-block;
+    line-height: 1;
+
+    a {
+      display: inline-block;
+      background: rgba(red($gray-light), green($gray-light), blue($gray-light), 0.5);
+      line-height: 24px;
+      text-align: center;
+      font-size: 14px;
+      margin-right: 3px;
+      padding: 6px 6px 2px 6px;
+      width: 36px;
+    }
+  }
+}
+
+// admin page -----------------------------------------------------------------
+.pf-body[data-script='admin']{
+  .navbar-brand:hover{
+      color: #777; // overwrite default
+  }
+
+  .panel{
+    text-align: initial;
+
+    h3 img{
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 4px 14px 0 0;
+      border-radius: 30%;
+    }
+
+  }
+  .form-horizontal .panel{
+    color: $gray-lighter;
+  }
+}
+
+// setup page -----------------------------------------------------------------
+.pf-body[data-script='setup']{
+  .navbar-brand:hover{
+    color: #777; // overwrite default
+  }
+
+  section {
+    padding-bottom: 0; // overwrite default
+    border-bottom: 0; // overwrite default
+
+    &:first-of-type{
+      padding-top: 60px;
+    }
+
+    &:last-of-type{
+      padding-bottom: 60px;
+    }
+
+    .container{
+      & > .row{
+        margin-bottom: 0; // overwrite default
+      }
+    }
+  }
+}
+
+// TEST ---
+/*
+.form-control {
+  border: 0;
+  background-image: linear-gradient(#568A89,#568A89),linear-gradient(#63676A,#63676A);
+  background-size: 0 2px,100% 1px;
+  background-repeat: no-repeat;
+  background-position: center bottom,center calc(100% - 1px);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.form-control:focus, .form-control.focus {
+  outline: none;
+  background-image: linear-gradient(#568A89,#568A89),linear-gradient(#63676A,#63676A);
+  -webkit-animation: input-highlight .5s forwards;
+  animation: input-highlight .5s forwards;
+  box-shadow: none;
+  background-size: 0 2px,100% 1px;
+}
+
+@keyframes input-highlight {
+  0% {
+    background-size: 0 2px, 100% 1px;
+  }
+  100% {
+    background-size: 100% 2px, 100% 1px;
+  }
+}
+*/

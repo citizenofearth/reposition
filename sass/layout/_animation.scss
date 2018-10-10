@@ -1,0 +1,154 @@
+// keyframes mixin
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// slide in and show ==============================================================================
+.pf-animation-slide-in {
+  -moz-animation-duration: 1.2s;
+  -webkit-animation-duration: 1.2s;
+  -moz-animation-name: pfSlideIn;
+  -webkit-animation-name: pfSlideIn;
+  position:relative;
+}
+
+@include keyframes(pfSlideIn){
+  from {
+    opacity: 0;
+    top: -20px;
+  }
+
+  to {
+    opacity: 1;
+    top:0px;
+  }
+};
+
+// SVG pulse "fill" ===============================================================================
+@include keyframes(pfPulseDanger){
+  0% {
+    fill: $red;
+  }
+  50% {
+    fill: $red-darkest;
+  }
+  100% {
+    fill: $red;
+  }
+}
+
+// pulse-out ======================================================================================
+.pf-animation-pulse-success{
+  @include animation( pulseBackgroundSuccess 1s 1 );
+  @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+
+  .sorting_1{
+    @include animation( pulseBackgroundSuccessActive 1s 1 );
+    @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+  }
+}
+
+.pf-animation-pulse-warning{
+  @include animation( pulseBackgroundWarning 1s 1 );
+  @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+
+  .sorting_1{
+    @include animation( pulseBackgroundWarningActive 1s 1 );
+    @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+  }
+}
+
+.pf-animation-pulse-danger{
+  @include animation( pulseBackgroundDanger 1s 1 );
+  @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+
+  .sorting_1{
+    @include animation( pulseBackgroundDangerActive 1s 1 );
+    @include animation-timing-function( cubic-bezier(0.53, -0.03, 0.68, 0.38) );
+  }
+}
+
+@include keyframes(pulseBackgroundSuccess){
+  0%   {}
+  10%  {
+    background-color: $green-dark;
+    color: $gray-dark;
+  }
+  100% {}
+};
+@include keyframes(pulseBackgroundSuccessActive){
+  0%   {}
+  10%  {
+    background-color: darken($green-dark, 5%);
+    color: $gray-dark;
+  }
+  100% {}
+};
+
+@include keyframes(pulseBackgroundWarning){
+  0%   {}
+  10%  {
+    background-color: $orange;
+    color: $gray-darker;
+  }
+  100% {}
+};
+@include keyframes(pulseBackgroundWarningActive){
+  0%   {}
+  10%  {
+    background-color: darken($orange, 5%);
+    color: $gray-darker;
+  }
+  100% {}
+};
+
+@include keyframes(pulseBackgroundDanger){
+  0%   {}
+  10%  {
+    background-color: $red;
+    color: $gray-darker;
+  }
+  100% {}
+};
+@include keyframes(pulseBackgroundDangerActive){
+  0%   {}
+  10%  {
+    background-color: darken($red, 5%);
+    color: $gray-darker;
+  }
+  100% {}
+};
+
+// rotate =========================================================================================
+.pf-animate-rotate{
+  @include transition( all 0.08s linear );
+}
+
+.pf-animate-rotate.right{
+  @include rotate( 90deg );
+}
+
+.pf-animate-rotate.left{
+  @include rotate( -90deg );
+}
+
+// navigation link active/hover indicator =========================================================
+@mixin navigation-active-indicator($position) {
+  content: '';
+  position: absolute;
+  background-color: $green;
+  opacity: 0;
+  will-change: opacity, $position ;
+  @include transition( $position 0.15s ease-out, opacity 0.15s ease-out );
+}
