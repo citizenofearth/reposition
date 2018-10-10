@@ -1,7 +1,7 @@
-# ![Pathfinder logo](favicon/favicon-32x32.png "Logo") *PATHFINDER*
+# ![Pathfinder logo](favicon/favicon-32x32.png "Logo") *REPOSITION*
 Mapping tool for [*EVE ONLINE*](https://www.eveonline.com)
 
-- Project URL [https://www.pathfinder-w.space](https://www.pathfinder-w.space)
+- Main Project URL [https://www.pathfinder-w.space](https://www.pathfinder-w.space)
 - Official forum post [https://forums.eveonline.com](https://forums.eveonline.com/default.aspx?g=posts&m=6021776#post6021776)
 - Screenshots [imgur.com](http://imgur.com/a/k2aVa)
 - Videos [youtube.com](https://www.youtube.com/channel/UC7HU7XEoMbqRwqxDTbMjSPg)
